@@ -1,0 +1,54 @@
+﻿<Window x:Class="WpfListBoxOfExpanders.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dps="clr-namespace:System.Windows.Controls;assembly=DockPanelSplitter"
+        xmlns:local="clr-namespace:WpfListBoxOfExpanders"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="450"
+        Width="800"
+        >
+   <Window.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/WpfListBoxOfExpanders;component//ControlPanelTemplate.xaml"/>
+            <ResourceDictionary Source="pack://application:,,,/WpfListBoxOfExpanders;component//Styles.xaml"/>
+            <ResourceDictionary Source="pack://application:,,,/WpfListBoxOfExpanders;component//WorkPanelTemplate.xaml"/>
+         </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
+   </Window.Resources>
+   <Grid>
+      <Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
+         <DockPanel LastChildFill="True">
+            <Border DockPanel.Dock="Left"
+                    BorderThickness="5"
+                    Background="LightBlue"
+                    Width="Auto"
+                    MinWidth="0"
+                    >
+               <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ControlPanelTemplate}" />
+               <!-- #region    Debug -->
+               <!--<TextBlock Text ="LeftPanel" />-->
+               <!-- #endregion Debug-->
+            </Border>
+
+            <dps:DockPanelSplitter DockPanel.Dock="Left" Style="{StaticResource VerticalBevelGripStyle}"/>
+
+            <Border x:Name="RightDockPanelBorder"
+                       BorderThickness="5"
+                       DockPanel.Dock="Right"
+                       Background="LightGreen"
+                       Width="Auto"
+                       HorizontalAlignment="Stretch"
+                       >
+                  <!-- #region    Debug -->
+                  <!--<TextBlock Text ="RightPanel" />-->
+                  <!-- #endregion Debug-->
+               <ContentControl Content="{Binding}" ContentTemplate ="{StaticResource WorkPanelTemplate}" />
+            </Border>
+         </DockPanel>
+      </Border>
+    </Grid>
+</Window>
