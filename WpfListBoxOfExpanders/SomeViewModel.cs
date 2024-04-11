@@ -16,6 +16,9 @@ namespace WpfListBoxOfExpanders
       [ObservableProperty]
       private ObservableData? _selectedItem;
 
+      [ObservableProperty]
+      private ObservableData? _someValue;
+
       public SomeViewModel()
       {
          DataCollection =

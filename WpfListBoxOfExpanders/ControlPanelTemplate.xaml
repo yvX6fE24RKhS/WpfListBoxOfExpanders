@@ -9,6 +9,7 @@
             <RowDefinition Height="24" />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="24" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
          </Grid.RowDefinitions>
          <TextBlock Grid.Row="0" Text ="Control Panel" />
@@ -43,6 +44,9 @@
                   </GridView>
                </ListView.View>
             </ListView>
+         </Border>
+         <Border Grid.Row="5" BorderThickness="1">
+            <TextBox Text="{Binding SomeValue}" Width="120" />
          </Border>
       </Grid>
    </DataTemplate>
