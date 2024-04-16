@@ -46,7 +46,7 @@
             </ListView>
          </Border>
          <Border Grid.Row="5" BorderThickness="1">
-            <TextBox Text="{Binding SomeValue}" Width="120" />
+            <TextBox Text="{Binding SomeValue}" Width="120" Height="Auto" VerticalAlignment="Top"/>
          </Border>
       </Grid>
    </DataTemplate>

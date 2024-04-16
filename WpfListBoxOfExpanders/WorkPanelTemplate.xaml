@@ -1,7 +1,30 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WpfListBoxOfExpanders">
-    <!--#region      ExpanderTemplate -->
+                    xmlns:local="clr-namespace:WpfListBoxOfExpanders"
+                    >
+
+   <!--#region      ValidationErrorTemplate -->
+   <!--Это пример стиля, который добавит Violet рамку--> 
+   <Style x:Key="ValidationErrorTemplate" TargetType="Control">
+      <Setter Property="Validation.ErrorTemplate">
+         <Setter.Value>
+            <ControlTemplate>
+               <DockPanel LastChildFill="True">
+                  <Border BorderBrush="Violet" BorderThickness="1">
+                     <AdornedElementPlaceholder Name="myControl"/>
+                  </Border>
+               </DockPanel>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <!--   Следующие стили основаны на 'ValidationErrorTemplate' -->
+   <!--надо применить только на рабочей панели-->
+   <Style TargetType="TextBox" BasedOn="{StaticResource ValidationErrorTemplate}" />
+   <!--#endregion   ValidationErrorTemplate -->
+
+   <!--#region      ExpanderTemplate -->
     <!--   Expander Button's Template -->
     <ControlTemplate x:Key="ExpanderToggleButtonTemplate" TargetType="ToggleButton">
         <Border>
@@ -38,7 +61,6 @@
  
     <!-- Expander Template-->
     <ControlTemplate x:Key="ExpanderTemplate" TargetType="{x:Type Expander}">
-        <!--<Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}, Path=ActualWidth}">-->
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -82,14 +104,6 @@
             <TextBox Grid.Column="1"
                      Text="{Binding Path=Data.ExpanderHeaderData, UpdateSourceTrigger=PropertyChanged}"/>
       </Grid>
-      <!--<Border Height="Auto">
-      <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Header:" />
-                    <TextBox Text="{Binding Path=Data.ExpanderHeaderData, UpdateSourceTrigger=PropertyChanged}" Width="240" />
-                </StackPanel>
-            </StackPanel>
-      </Border>-->
     </DataTemplate>
  
     <!--Expander Content Template-->
@@ -103,21 +117,13 @@
             <TextBox Grid.Column="1"
                      Text="{Binding Path=Data.ExpanderContentData, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <!--<Border Height="100">
-            <WrapPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Content:" />
-                    <TextBox Text="{Binding Path=Data.ExpanderContentData, UpdateSourceTrigger=PropertyChanged}" Width="240" />
-                </StackPanel>
-            </WrapPanel>
-        </Border>-->
     </DataTemplate>
     <!--#endregion   ExpanderTemplate -->
- 
-    <!--Шаблон расширяемого элемента панели задания-->
-    <DataTemplate x:Key="ExpandableTaskPanelItemTemplate"
+
+   <!--#region      WorkPanelTemplate -->
+   <!--Шаблон расширяемого элемента панели задания-->
+    <DataTemplate x:Key="ExpandableWorkPanelItemTemplate"
                   DataType="{x:Type local:ObservableData}">
-        <!--<StackPanel>-->
         <Border BorderBrush="Black" BorderThickness="1,1,1,1">
             <Expander Template="{StaticResource ExpanderTemplate}"
                       IsExpanded="{Binding IsExpanded, UpdateSourceTrigger=PropertyChanged}"
@@ -127,22 +133,9 @@
                       ContentTemplate="{DynamicResource ExpanderContentTemplate}"
                       Header="{Binding}"
                       Content="{Binding}">
-                <!--<Expander.Header>
-                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExpanderHeaderTemplate}" />
-                </Expander.Header>-->
-                <!--<ContentControl Content="{Binding}" ContentTemplate="{StaticResource ExpanderContentTemplate}" />-->
             </Expander>
         </Border>
-        <!--</StackPanel>-->
     </DataTemplate>
- 
-    <Style TargetType="ListBoxItem">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="IsSelected" Value="true" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
  
     <!--Шаблон размещения элементов на рабочей панели.-->
     <DataTemplate x:Key="WorkPanelTemplate">
@@ -157,7 +150,8 @@
             <ListBox Grid.Row="1" ItemsSource="{Binding DataCollection}"
                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                      SelectionMode="Single"
-                     ItemTemplate="{DynamicResource ExpandableTaskPanelItemTemplate}">
+                     ItemTemplate="{DynamicResource ExpandableWorkPanelItemTemplate}"
+                     >
  
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
@@ -169,13 +163,8 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
  
-                <!--<ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <ContentControl Content="{Binding}" ContentTemplate ="{StaticResource ExpandableTaskPanelItemTemplate}" Width="Auto" HorizontalAlignment="Stretch" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>-->
- 
             </ListBox>
         </Grid>
     </DataTemplate>
+   <!--#endregion   WorkPanelTemplate -->
 </ResourceDictionary>
