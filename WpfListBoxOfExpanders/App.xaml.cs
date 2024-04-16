@@ -33,6 +33,7 @@ namespace WpfListBoxOfExpanders
             Ioc.Default.ConfigureServices(
                 services
                 // Services
+                .AddSingleton<IValidationService, ValidationService>()
                 // View Models
                 .AddTransient<SomeViewModel>()
                 .BuildServiceProvider()

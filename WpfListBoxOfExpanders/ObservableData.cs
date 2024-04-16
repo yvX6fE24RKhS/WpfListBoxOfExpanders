@@ -7,7 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WpfListBoxOfExpanders
 {
-   internal partial class ObservableData(DataModel data) : ObservableObject
+   internal partial class ObservableData(DataModel data) : ObservableValidator
    {
       [ObservableProperty]
       private DataModel _data = data;
